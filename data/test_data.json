@@ -1,0 +1,91 @@
+{
+  "users": {
+    "valid_user": {
+      "name": "John Doe",
+      "username": "johndoe",
+      "email": "john@example.com",
+      "address": {
+        "street": "123 Main St",
+        "city": "New York",
+        "zipcode": "10001"
+      },
+      "phone": "555-1234",
+      "website": "johndoe.com"
+    },
+    "update_user": {
+      "name": "Jane Smith",
+      "username": "janesmith",
+      "email": "jane@example.com"
+    },
+    "invalid_user": {
+      "name": "",
+      "email": "invalid-email"
+    }
+  },
+  "posts": {
+    "valid_post": {
+      "title": "Test Post",
+      "body": "This is a test post content for API testing.",
+      "userId": 1
+    },
+    "update_post": {
+      "title": "Updated Test Post",
+      "body": "This is updated content.",
+      "userId": 1
+    },
+    "invalid_post": {
+      "title": "",
+      "body": "",
+      "userId": "not-a-number"
+    },
+    "post_missing_fields": {
+      "title": "Only Title"
+    }
+  },
+  "comments": {
+    "valid_comment": {
+      "name": "Test Comment",
+      "email": "test@example.com",
+      "body": "This is a test comment.",
+      "postId": 1
+    }
+  },
+  "schemas": {
+    "user_schema": {
+      "type": "object",
+      "required": ["id", "name", "username", "email"],
+      "properties": {
+        "id": {"type": "integer"},
+        "name": {"type": "string"},
+        "username": {"type": "string"},
+        "email": {"type": "string", "format": "email"},
+        "address": {
+          "type": "object",
+          "properties": {
+            "street": {"type": "string"},
+            "city": {"type": "string"},
+            "zipcode": {"type": "string"}
+          }
+        },
+        "phone": {"type": "string"},
+        "website": {"type": "string"}
+      }
+    },
+    "post_schema": {
+      "type": "object",
+      "required": ["id", "title", "body", "userId"],
+      "properties": {
+        "id": {"type": "integer"},
+        "title": {"type": "string"},
+        "body": {"type": "string"},
+        "userId": {"type": "integer"}
+      }
+    },
+    "users_list_schema": {
+      "type": "array",
+      "items": {
+        "$ref": "#/schemas/user_schema"
+      }
+    }
+  }
+}

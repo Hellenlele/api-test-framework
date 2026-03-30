@@ -1,0 +1,44 @@
+environments:
+  local:
+    base_url: "http://localhost:3000/api"
+    timeout: 30
+    auth:
+      type: "none"
+  
+  dev:
+    base_url: "https://dev-api.example.com/api/v1"
+    timeout: 30
+    auth:
+      type: "bearer"
+      token: "your-dev-token-here"
+  
+  staging:
+    base_url: "https://staging-api.example.com/api/v1"
+    timeout: 30
+    auth:
+      type: "api_key"
+      key_name: "X-API-Key"
+      api_key: "your-staging-api-key-here"
+  
+  prod:
+    base_url: "https://api.example.com/api/v1"
+    timeout: 60
+    auth:
+      type: "bearer"
+      token: "your-prod-token-here"
+
+# JSONPlaceholder for demo (free fake REST API)
+demo:
+  base_url: "https://jsonplaceholder.typicode.com"
+  timeout: 30
+  auth:
+    type: "none"
+
+default_headers:
+  Content-Type: "application/json"
+  Accept: "application/json"
+
+test_settings:
+  max_response_time_ms: 5000
+  retry_attempts: 3
+  parallel_execution: false
