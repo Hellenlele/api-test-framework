@@ -257,7 +257,7 @@ class TestPostsAPI(BaseAPITest):
         self.log_test_result("Get Posts By Nonexistent User", True)
 
     def test_response_time(self, api_client):
-        """验证 Posts API 各接口响应时间均在 2000ms 以内"""
+        """Verify that all Posts API endpoints respond within 2000ms"""
         endpoints = [
             ("/posts", "GET All Posts"),
             ("/posts/1", "GET Post By ID"),
@@ -292,7 +292,7 @@ class TestPostsAPI(BaseAPITest):
         self.log_test_result("Delete All Posts By User", True)
 
     def test_create_post_schema_validation(self, api_client, assert_api):
-        """POST /posts 创建文章后，验证响应结构符合预期 schema"""
+        """Verify that the response schema matches the expected structure after POST /posts"""
         self.log_test_info("Create Post Schema Validation", "/posts", "POST")
 
         payload = {
