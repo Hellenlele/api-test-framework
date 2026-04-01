@@ -268,6 +268,29 @@ class TestPostsAPI(BaseAPITest):
             response = api_client.get(path)
             self.assert_response_time(response, 2000)
 
+    def test_delete_all_posts_by_user(self, api_client, assert_api):
+        """Delete all posts belonging to a particular user"""
+        user_id = 1
+        self.log_test_info("Delete All Posts By User", f"/posts?userId={user_id}", "DELETE")
+
+        # Fetch all posts for the user
+        response = api_client.get("/posts", params={"userId": user_id})
+        assert_api.assert_status_code(response, 200)
+
+        posts = response.json()
+        assert len(posts) > 0, f"User {user_id} should have posts to delete"
+
+        # Delete each post
+        deleted_ids = []
+        for post in posts:
+            post_id = post["id"]
+            delete_response = api_client.delete(f"/posts/{post_id}")
+            assert_api.assert_status_code(delete_response, 200)
+            deleted_ids.append(post_id)
+
+        assert len(deleted_ids) == len(posts), "All posts should have been deleted"
+        self.log_test_result("Delete All Posts By User", True)
+
     def test_create_post_schema_validation(self, api_client, assert_api):
         """POST /posts 创建文章后，验证响应结构符合预期 schema"""
         self.log_test_info("Create Post Schema Validation", "/posts", "POST")
