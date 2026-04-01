@@ -268,6 +268,27 @@ class TestPostsAPI(BaseAPITest):
             response = api_client.get(path)
             self.assert_response_time(response, 2000)
 
+    def test_delete_specific_post_by_user(self, api_client, assert_api):
+        """Delete a specific post belonging to a particular user"""
+        user_id = 1
+        self.log_test_info("Delete Specific Post By User", f"/posts?userId={user_id}", "DELETE")
+
+        # Fetch all posts for the user
+        response = api_client.get("/posts", params={"userId": user_id})
+        assert_api.assert_status_code(response, 200)
+
+        posts = response.json()
+        assert len(posts) > 0, f"User {user_id} should have posts to delete"
+
+        # Delete the first post belonging to the user
+        post_id = posts[0]["id"]
+        assert posts[0]["userId"] == user_id, f"Post {post_id} should belong to user {user_id}"
+
+        delete_response = api_client.delete(f"/posts/{post_id}")
+        assert_api.assert_status_code(delete_response, 200)
+
+        self.log_test_result("Delete Specific Post By User", True)
+
     def test_delete_all_posts_by_user(self, api_client, assert_api):
         """Delete all posts belonging to a particular user"""
         user_id = 1
