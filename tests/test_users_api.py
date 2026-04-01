@@ -113,7 +113,7 @@ class TestUsersAPI(BaseAPITest):
         self.log_test_result("Delete User", True)
     
     def test_response_time(self, api_client):
-        """验证 Users API 各接口响应时间均在 2000ms 以内"""
+        """Verify that all Users API endpoints respond within 2000ms"""
         endpoints = [
             ("/users", "GET All Users"),
             ("/users/1", "GET User By ID"),
