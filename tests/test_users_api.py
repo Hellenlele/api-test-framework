@@ -123,6 +123,15 @@ class TestUsersAPI(BaseAPITest):
             response = api_client.get(path)
             self.assert_response_time(response, 2000)
 
+    def test_delete_nonexistent_user(self, api_client, assert_api):
+        self.log_test_info("Delete Nonexistent User", "/users/999", "DELETE")
+
+        response = api_client.delete("/users/999")
+
+        assert_api.assert_status_code(response, 404)
+
+        self.log_test_result("Delete Nonexistent User", True)
+
     def test_create_user_with_invalid_data(self, api_client, assert_api, test_data):
         self.log_test_info("Create User Invalid Data", "/users", "POST")
         
